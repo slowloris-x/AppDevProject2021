@@ -7,24 +7,34 @@
 <h1 class="display-4">Create User</h1>
 
 <form method="POST" action="">
-  <div class="form-group">
-    {{ render_field(form.first_name, class="form-control") }}
-  </div>
-  <div class="form-group">
-    {{ render_field(form.last_name, class="form-control") }}
-  </div>
-  <div class="form-group">
-    {{ render_field(form.gender, class="form-control") }}
-  </div>
-  <div class="form-group">
-    {{ render_field(form.membership, class="form-check", style="list-style-type:none") }}
-  </div>
-  <div id="prof">
     <div class="form-group">
-      {{ render_field(form.remarks, class="form-control") }}
+        {{ render_field(form.email, class="form-control") }}
     </div>
-  </div>
-  <input type="submit" value="Submit" class="btn btn-primary"/>
+    <div class="form-group">
+        {{ render_field(form.password, class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ render_field(form.confirm_password, class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ render_field(form.name, class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ render_field(form.gender, class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ render_field(form.birthday, class="form-control datepicker") }}
+    </div>
+    <div class="form-group">
+        {{ render_field(form.membership, class="form-check") }}
+    </div>
+    <div class="form-group">
+        {{ render_field(form.user_type, class="form-check") }}
+    </div>
+    <div class="form-group">
+        {{ render_field(form.remarks, class="form-control") }}
+    </div>
+    <input type="submit" value="Submit" class="btn btn-primary mt-3"/>
 </form>
 {% endblock %}
 
