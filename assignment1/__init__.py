@@ -16,5 +16,11 @@ def contact_us():
     return render_template('contactUs.html')
 
 
+@app.route('/login')
+def login_page():
+    return render_template('login.html')
+
+
+
 if __name__ == '__main__':
     app.run(port=5001)
