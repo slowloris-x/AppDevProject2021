@@ -76,6 +76,7 @@ def login():
         if user is not None:
             session['user_name'] = user.name
             session['user_type'] = user.user_type
+            session['user_id'] = user.id
             return redirect('/')
         else:
             error = 'Invalid email or password'
@@ -89,3 +90,9 @@ def logout():
     session.pop('user_name', None)
     session.pop('user_type', None)
     return redirect('/')
+
+
+@user_controller.route('/profile/<id>', methods=['GET', 'POST'])
+def profile(id):
+    user = get_user(id)
+    return render_template('profile.html', user=user)

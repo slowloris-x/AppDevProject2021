@@ -1,21 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{% extends "base.html" %}
-{% block title %}Retrieve Users{% endblock %}
+{% extends "base.html" %}
+{% block title %}profile{% endblock %}
 
 {% block content %}
-<h1 class="display-4">Retrieve Users</h1>
-<div>
-    {% if count == 0 %}
-    <p>There are no users</p>
-    {% elif count == 1 %}
-    <p>There is 1 user</p>
-    {% else %}
-    <p>There are {{ count }} users</p>
-    {% endif %}
-</div>
+<h1 class="display-4">Profile</h1>
+
 <div>
     <table class="table table-striped">
         <thead>
@@ -31,7 +19,6 @@
         </tr>
         </thead>
         <tbody>
-        {% for user in user_list %}
         <tr>
             <td>{{user.get_user_type_str()}}</td>
             <td>{{user.email}}</td>
@@ -77,12 +64,12 @@
                 </form>
             </td>
         </tr>
-        {% endfor %}
+
         </tbody>
     </table>
 </div>
 {% endblock %}</title>
-</head>
+
 <body>
 
 </body>

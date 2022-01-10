@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, session
 from user_controller import user_controller
 
 app = Flask(__name__)
@@ -8,7 +8,8 @@ app.secret_key = 'MyFlaskWebAppKey'
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    user = session['user_id']
+    return render_template('home.html', user=user)
 
 
 @app.route('/contactUs')
@@ -23,4 +24,4 @@ def login_page():
 
 
 if __name__ == '__main__':
-    app.run(port=5001)
+    app.run(port=5001,debug=True)
