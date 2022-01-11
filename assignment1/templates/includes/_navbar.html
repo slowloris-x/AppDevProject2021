@@ -26,8 +26,12 @@
           </li>
         </ul>
         <form>
+          {% if session %}
+          <a class="btn btn-outline-success" href="/logout">logout</a>
+          {% else %}
           <a class="btn btn-outline-success" href="/login">Login</a>
           <a class="btn btn-outline-success" href="/createUser">Register</a>
+          {% endif %}
         </form>
       </div>
     </div>

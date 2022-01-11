@@ -5,10 +5,16 @@ app = Flask(__name__)
 app.register_blueprint(user_controller)
 app.secret_key = 'MyFlaskWebAppKey'
 
+@app.before_first_request
+def before_first_request():
+    session.clear()
 
 @app.route('/')
 def home():
-    user = session['user_id']
+    if session:
+        user = session['user_id']
+    else:
+        user = None
     return render_template('home.html', user=user)
 
 

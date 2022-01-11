@@ -26,9 +26,9 @@
             <td>{{user.get_gender_str()}}</td>
             <td>{{user.get_membership_str()}}</td>
             <td>{{user.get_time_updated_str()}}</td>
-            <td><a href="/updateUser/{{user.id}}" class="btn btn-warning">Update</a></td>
+            <td><a href="/profile/updateProfile" class="btn btn-warning">Update</a></td>
             <td>
-                <form action="/deleteUser/{{user.id}}" method="POST">
+                <form action="/deleteProfile/{{user.id}}" method="POST">
                     <!-- Button to Open the Modal -->
                     <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                             data-bs-target="#myModal_{{user.id}}">
