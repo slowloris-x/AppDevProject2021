@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Add inventory{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+
+<h1 class="display-4">Add inventory</h1>
+
+<form method="POST" action="">
+    <div class="form-group">
+        {{ render_field(form.temp, class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ render_field(form.cuisine, class="form-check") }}
+    </div>
+        <div class="form-group">
+        {{ render_field(form.name, class="form-control") }}
+    </div>
+       <div class="text-danger mt-2">{{error}}</div>
+
+    <input type="submit" value="Submit" class="btn btn-primary mt-3"/>
+</form>
+
+<h1>This is a test</h1>
+{% endblock %}

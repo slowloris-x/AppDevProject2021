@@ -1,8 +1,10 @@
 from flask import Flask, render_template, session
 from user_controller import user_controller
+from inventory_controller import inventory_controller
 
 app = Flask(__name__)
 app.register_blueprint(user_controller)
+app.register_blueprint(inventory_controller)
 app.secret_key = 'MyFlaskWebAppKey'
 
 @app.before_first_request
