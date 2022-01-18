@@ -24,7 +24,6 @@
             <th>Email</th>
             <th>Name</th>
             <th>Gender</th>
-            <th>Membership</th>
             <th>Time Updated</th>
             <th></th>
             <th></th>
@@ -37,7 +36,6 @@
             <td>{{user.email}}</td>
             <td>{{user.name}}</td>
             <td>{{user.get_gender_str()}}</td>
-            <td>{{user.get_membership_str()}}</td>
             <td>{{user.get_time_updated_str()}}</td>
             <td><a href="/updateUser/{{user.id}}" class="btn btn-warning">Update</a></td>
             <td>

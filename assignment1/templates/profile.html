@@ -3,7 +3,7 @@
 
 {% block content %}
 <h1 class="display-4">Profile</h1>
-
+<body>
 <div>
     <table class="table table-striped">
         <thead>
@@ -12,7 +12,6 @@
             <th>Email</th>
             <th>Name</th>
             <th>Gender</th>
-            <th>Membership</th>
             <th>Time Updated</th>
             <th></th>
             <th></th>
@@ -24,7 +23,6 @@
             <td>{{user.email}}</td>
             <td>{{user.name}}</td>
             <td>{{user.get_gender_str()}}</td>
-            <td>{{user.get_membership_str()}}</td>
             <td>{{user.get_time_updated_str()}}</td>
             <td><a href="/profile/updateProfile" class="btn btn-warning">Update</a></td>
             <td>
@@ -68,9 +66,13 @@
         </tbody>
     </table>
 </div>
-{% endblock %}</title>
+<p>data</p>
+<p>{{user.time_login}}</p>
+{% endblock %}
 
-<body>
 
+<p>data</p>
+<p>{{user.time_login}}</p>
+<
 </body>
 </html>
