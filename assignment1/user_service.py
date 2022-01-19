@@ -23,6 +23,7 @@ def get_user_list():
     user_list = user_dict.values()
     user_list = filter(check_status, user_list)
     user_list = sorted(user_list, key=by_time_updated, reverse=True)
+    print(user_list)
     return user_list
 
 
@@ -62,3 +63,5 @@ def save_user(user):
     user_dict[user.id] = user
     db[db_users_key] = user_dict
     db.close()
+
+get_user_list()

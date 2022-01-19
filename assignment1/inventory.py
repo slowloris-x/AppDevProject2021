@@ -10,7 +10,8 @@ class Inventory:
         'C': 'Chinese', 'M': 'Malay', 'I': 'Indian', 'O': 'Others'
     }
 
-    def __init__(self, cuisine, temp, name):
+    def __init__(self, cuisine, temp, name, profile_pic=None):
+        self.profile_pic = profile_pic
         self.cuisine = cuisine
         self.temp = temp
         self.name = name
@@ -26,7 +27,10 @@ class Inventory:
     def get_name(self):
         return self.name
 
+    def get_image(self):
+        return self.profile_pic
+
     def __str__(self):
         return f'Temp:{self.temp}, ' \
-               f'Cuisine:{self.cuisine}, '\
+               f'Cuisine:{self.cuisine}, ' \
                f'name:{self.name}'

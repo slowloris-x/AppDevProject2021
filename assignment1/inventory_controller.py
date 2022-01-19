@@ -1,9 +1,17 @@
-from flask import Blueprint, render_template, request, redirect, session, url_for
+from flask import Blueprint, render_template, request, redirect, session, url_for, send_file, send_from_directory
 from user_forms import CreateUserForm, UpdateUserForm, LoginForm, changePassword
 from user import User
-from user_service import get_user_list, get_user, save_user, get_user_for_login
+from user_service import get_user_list, get_user, save_user, get_user_for_login, by_time_updated
 from datetime import datetime
 from constants import date_format, datetime_format
+import os
+from flask import Flask, flash, request, redirect, url_for, current_app
+
+UPLOAD_FOLDER = 'assignment1/static/images/'
+ALLOWED_EXTENSIONS = {'png', 'jpg'}
+
+app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 inventory_controller = Blueprint('inventory', __name__)
 import shelve
@@ -19,27 +27,67 @@ db_name = 'inventory'
 # def Retrieve_inventory():
 #
 #
-@inventory_controller.route('/addInventory',methods=['GET','POST'])
+
+@app.route('/static/<path:path>')
+def send_static(path):
+    return send_from_directory('static', path)
+
+
+@inventory_controller.route('/addInventory', methods=['GET', 'POST'])
 def add_inventory():
     form = CreateInventoryForm(request.form)
-    inventory = get_inventory()
+    inventory = get_inventory_list()
     print(inventory)
     if request.method == 'POST' and form.validate():
         inventorylist = []
-        for inventory in get_inventory():
+        for inventory in get_inventory_list():
             inventorylist.append(inventory)
-        print(inventorylist)
-        if form.name == inventorylist:
-            error = 'this name has been used before'
-            return render_template('createUser.html', form=CreateInventoryForm, error=error)
+            print(inventorylist)
+            if form.name == inventorylist:
+                error = 'this name has been used before'
+                return render_template('createUser.html', form=CreateInventoryForm, error=error)
         else:
             name = form.name.data
             temperature = form.temp.data
             cuisine = form.cuisine.data
-            finished_food = Inventory(cuisine, temperature, name)
+
+            # check if the post request has the file part
+            if 'file' not in request.files:
+                flash('No file part')
+                return redirect(request.url)
+
+            file = request.files['file']
+            # If the user does not select a file, the browser submits an
+            # empty file without a filename.
+            print(file)
+
+            filename = 'default'
+
+            print(filename)
+            if request.files['file'].filename != '':
+
+                filename = request.form["name"]
+                file.save(
+                    os.path.join(os.path.dirname(current_app.instance_path),
+                                 "static\\images", (filename + ".jpg")))
+
+            finished_food = Inventory(cuisine, temperature, name, filename)
             save_inventory(finished_food)
-            return render_template('retrieveFood.html')
-    return render_template('addInventory.html',form=form)
+            print(finished_food)
+            return render_template('home.html')
+    return render_template('addInventory.html', form=form)
+
+
+@inventory_controller.route('/retrieveInventory')
+def retrieve_inventory():
+    inventory_list = get_inventory_list()
+    return render_template('retrieveInventory.html', inventory_list=inventory_list)
+
+
+# @inventory_controller.route("/sendimage/<img>")
+# def send_img(img):
+#     return send_file('static/images/' + img)
+
 
 def get_inventory(key):
     stock = {}
@@ -52,6 +100,16 @@ def get_inventory(key):
         return getinventory
 
 
+def get_inventory_list():
+    user_dict = {}
+    db = shelve.open(db_name)
+    if db_inventory_key in db:
+        user_dict = db[db_inventory_key]
+    db.close()
+    user_list = user_dict.values()
+    return user_list
+
+
 def save_inventory(food):
     food.time_updated = datetime.now()
     inventory_dict = {}
@@ -61,3 +119,11 @@ def save_inventory(food):
     inventory_dict[food.name] = food
     db[db_inventory_key] = inventory_dict
     db.close()
+
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+print(get_inventory_list())
