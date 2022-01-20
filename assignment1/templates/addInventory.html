@@ -6,15 +6,18 @@
 
 <h1 class="display-4">Add inventory</h1>
 
-<form method="POST" action="" enctype="multipart/form-data">
+<form method="POST" action="" class="form-group" enctype="multipart/form-data">
     <div class="form-group">
         {{ render_field(form.temp, class="form-control") }}
     </div>
     <div class="form-group">
         {{ render_field(form.cuisine, class="form-check") }}
     </div>
-        <div class="form-group">
+    <div class="form-group">
         {{ render_field(form.name, class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ render_field(form.price, class="form-control") }}
     </div>
     <div class="form-group">
         <input id="inputImage" type="file" name="file" accept="image/*">
