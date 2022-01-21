@@ -13,6 +13,7 @@
             <th>Name</th>
             <th>Gender</th>
             <th>Time Updated</th>
+            <th>Last Login</th>
             <th></th>
             <th></th>
         </tr>
@@ -24,6 +25,7 @@
             <td>{{user.name}}</td>
             <td>{{user.get_gender_str()}}</td>
             <td>{{user.get_time_updated_str()}}</td>
+            <td>{{user.get_last_login()}}</td>
             <td><a href="/profile/updateProfile" class="btn btn-warning">Update</a></td>
             <td>
                 <form action="/deleteProfile/{{user.id}}" method="POST">
@@ -66,13 +68,8 @@
         </tbody>
     </table>
 </div>
-<p>data</p>
-<p>{{user.time_login}}</p>
 {% endblock %}
 
 
-<p>data</p>
-<p>{{user.time_login}}</p>
-<
 </body>
 </html>

@@ -13,7 +13,7 @@ class Inventory:
     status_active = 1
     status_deleted = 0
 
-    def __init__(self, cuisine, temp, name, price, profile_pic=None):
+    def __init__(self, cuisine, temp, name, price, stock=0, profile_pic=None):
         self.profile_pic = profile_pic
         self.cuisine = cuisine
         self.temp = temp
@@ -23,6 +23,8 @@ class Inventory:
         self.price = price
         self.status = Inventory.status_active
         self.id = name.replace(" ",'')
+        self.stock = stock
+
 
     def get_cuisine(self):
         return Inventory.cuisine_dict[self.cuisine]
@@ -38,6 +40,15 @@ class Inventory:
 
     def get_image(self):
         return self.profile_pic
+
+    def get_stock(self):
+        return self.stock
+
+    def get_food_type_str(self):
+        return Inventory.cuisine_dict[self.cuisine]
+    def get_temp_str(self):
+        return Inventory.temp_dict[self.temp]
+
 
     def __str__(self):
         return f'Temp:{self.temp}, ' \

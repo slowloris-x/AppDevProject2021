@@ -64,4 +64,13 @@ def save_user(user):
     db[db_users_key] = user_dict
     db.close()
 
+def save_user_noupdate(user):
+    user_dict = {}
+    db = shelve.open(db_name)
+    if db_users_key in db:
+        user_dict = db[db_users_key]
+    user_dict[user.id] = user
+    db[db_users_key] = user_dict
+    db.close()
+
 get_user_list()

@@ -8,22 +8,35 @@
       <div class="navbar-collapse" id="navbarsExample04">
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+<!--            <a class="nav-link active" aria-current="page" href="#">Home</a>-->
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/addInventory">AddFood(debug)'</a>
+            {% if session.user_type == 'S' %}
+            <a class="nav-link" href="/addInventory">AddFood(staff)</a>
+            {% else %}
+            <a class="nav-link disabled" href="">AddFood</a>
+            {% endif %}
           </li>
           <li class="nav-item">
+            {% if session.user_type == 'S' %}
             <a class="nav-link " href="/retrieveInventory" tabindex="-1" aria-disabled="true">inventory(staff)</a>
+            {% else %}
+            <a class="nav-link disabled" href="">inventory</a>
+            {% endif %}
           </li>
            <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown link
+            User options
           </a>
+             {% if session.user_type == 'C','S' %}
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <li><a class="dropdown-item" href="/profile/{{session.user_id}}">Profile</a></li>
+            <li><a class="dropdown-item" href="/updateUser/{{session.user_id}}">Change User Details</a></li>
+            {% if session.user_type == 'S' %}
+            <li><a class="dropdown-item" href="/retrieveUsers">All Users (staff)</a></li>
+              <li><a class="dropdown-item" href="/retrieveUsers">All Users (staff)</a></li>
+            {% endif %}
+            {% endif %}
           </ul>
 
             </li>

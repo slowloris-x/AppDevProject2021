@@ -14,7 +14,7 @@ class User:
     status_active = 1
     status_deleted = 0
 
-    def __init__(self, email, password, name, gender, remarks=None, birthday=None, user_type='C'):
+    def __init__(self, email, password, name, gender, remarks=None, birthday=None, user_type='G'):
         self.id = str(uuid.uuid4())
         self.email = email
         self.password = password
@@ -26,10 +26,8 @@ class User:
         self.status = User.status_active
         self.time_created = datetime.now()
         self.time_updated = datetime.now()
-        self.time_login = None
+        self.time_login = datetime.now()
 
-    def get_time_login(self):
-        return self.time_login()
 
 
     def get_gender_str(self):
@@ -49,6 +47,9 @@ class User:
 
     def get_time_updated_str(self):
         return self.time_updated.strftime(datetime_format)
+
+    def get_last_login(self):
+        return self.time_login.strftime(datetime_format)
 
     def __str__(self):
         return f'ID: {self.id}\n' \

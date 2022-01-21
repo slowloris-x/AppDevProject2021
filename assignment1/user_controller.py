@@ -1,9 +1,10 @@
 from flask import Blueprint, render_template, request, redirect, session, url_for
 from user_forms import CreateUserForm, UpdateUserForm, LoginForm, changePassword
 from user import User
-from user_service import get_user_list, get_user, save_user, get_user_for_login
+from user_service import get_user_list, get_user, save_user, get_user_for_login, save_user_noupdate
 from datetime import datetime
 from constants import date_format, datetime_format
+
 user_controller = Blueprint('user', __name__)
 
 
@@ -103,8 +104,9 @@ def login():
             session['user_name'] = user.name
             session['user_type'] = user.user_type
             session['user_id'] = user.id
-            user.time_login = datetime.now().strftime(datetime_format)
-            save_user(user)
+            user.time_login = datetime.now()
+            print(f'last login:{user.time_login}')
+            save_user_noupdate(user)
             return redirect('/')
         else:
             error = 'Invalid email or password'
@@ -140,7 +142,6 @@ def updateProfile():
         user.remarks = form.remarks.data
         user.birthday = form.birthday.data
         user.user_type = form.user_type.data
-
         save_user(user)
 
         return redirect(url_for('user.profile', id=session['user_id']))

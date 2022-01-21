@@ -4,15 +4,27 @@
 {% block content %}
 <h1 class="display-4">Home</h1>
 <p>
-<h2><a href="/retrieveUsers">users</a></h2>
+<!--<h2><a href="/retrieveUsers">users</a></h2>-->
 <table>
+    <tr>
+        <th >Name</th>
+        <th>Image</th>
+        <th>Cuisine</th>
+        <th>Temp</th>
+        <th>Price</th>
+        <th>Stock</th>
+    </tr>
 {% for item in inventory_list %}
 <tr>
 
     <td>{{item.name}}</td>
     <td><img class="d-block" style="width: 75px; height: 75px;" src="/static/images/{{item.profile_pic | default('default')}}.jpg"> </td>
+    <td>{{item.cuisine}}</td>
+    <td>{{item.temp}}</td>
+    <td>{{item.price}}</td>
+    <td>{{item.stock}}</td>
     <td>
-<td><a href="/updateFood/{{item.name}}" class="btn btn-warning">Update</a></td>
+<td><a href="/updateInventory/{{item.name}}" class="btn btn-warning">Update</a></td>
             <td>
                 <form action="/deleteFood/{{item.name}}" method="POST">
                     <!-- Button to Open the Modal -->
@@ -34,7 +46,7 @@
 
                                 <!-- Modal body -->
                                 <div class="modal-body">
-                                    Are you sure to delete {{item.id}}?
+                                    Are you sure to delete {{item.name}}?
                                 </div>
 
                                 <!-- Modal footer -->

@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block title %}Food - {{food.name}}{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+
+
+<h1 class="display-4">{{food.name}}</h1>
+<img class="d-block" style="width: 200px; height: 200px;" src="/static/images/{{food.profile_pic | default('default')}}.jpg">
+
+<h1>Review</h1>
+
+<div>
+
+        {% if count > 0 %}
+        {% for key,values in review.items() %}
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">{{key}}</h5>
+            <p class="card-text">{{values}}</p>
+              {% if session.user_name == key or session.user_type == 'S' %}
+            <form action="/deletePost/{{key}}/{{food.name}}" method="POST">
+                    <!-- Button to Open the Modal -->
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                            data-bs-target="#myModal_{{key.replace(' ','')}}">
+                        Delete
+                    </button>
+
+                    <!-- The Modal -->
+                    <div class="modal" id="myModal_{{key.replace(' ','')}}">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Delete Confirmation</h4>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+
+                                <!-- Modal body -->
+                                <div class="modal-body">
+                                    Are you sure to delete {{key}}?
+                                </div>
+
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                    <input type="submit" value="Delete" class="btn btn-danger">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+              {% endif %}
+          </div>
+        </div>
+        {% else %}
+
+        <h3>
+        <div class="text-decoration-underline">Comments</div>
+        </h3>
+
+    {% endfor %}
+
+    {% endif %}
+    <h2>No comments here..Yet</h2>
+
+
+</div>
+
+
+
+    <h1>Add Your Own Comments</h1>
+{% if session.user_name %}
+        <form method="POST" action="">
+            <div class="form-group">
+                {{ render_field(form.message, class="form-control") }}
+            </div>
+            <input type="submit" value="Submit" class="btn btn-primary mt-3"/>
+            <div class="text-danger mt-2">{{error}}</div>
+        </form>
+    {% else %}
+    <p>Sorry Only logged in users can comment</p>
+    {% endif %}
+
+{% endblock %}

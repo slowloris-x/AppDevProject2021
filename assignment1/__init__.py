@@ -1,6 +1,7 @@
 from flask import Flask, render_template, session
 from user_controller import user_controller
-from inventory_controller import inventory_controller
+from inventory_controller import inventory_controller, retrieve_inventory, get_inventory_list
+from user import User
 
 app = Flask(__name__)
 app.register_blueprint(user_controller)
@@ -13,11 +14,13 @@ def before_first_request():
 
 @app.route('/')
 def home():
+    inventory_list = get_inventory_list()
+    print(inventory_list)
     if session:
         user = session['user_id']
     else:
         user = None
-    return render_template('home.html', user=user)
+    return render_template('home.html', user=user,inventory_list=inventory_list)
 
 
 @app.route('/contactUs')

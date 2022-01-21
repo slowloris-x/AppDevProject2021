@@ -2,16 +2,51 @@
 {% block title %}home page{% endblock %}
 
 {% block content %}
-<h1 class="display-4">Home</h1>
 <p>
-{% if session.user_name %}
+{% if session.user_type == 'g' %}
     Hello {{session.user_name}}
-
-        <h2><a href="/profile/{{user}}" class="btn btn-warning">profile</a></h2>
-        <h2><a href="/logout">logout</a></h2>
-        <h2><a href="/retrieveUsers">users</a></h2>
     {% else %}
     Hello Guest!
 {% endif %}
+<h1 class="display-4">Menu</h1>
+<div class="container d-flex justify-content-start flex-wrap">
+{% for food in inventory_list %}
+        <div class="col-4 mb-5 text-center">
+        <a href="/foodpage/{{food.name}}">
+            <div class="col text-center">{{food.name}}</div>
+            <img class="col text-center" style="width: 100px; height: 100px;" src="/static/images/{{food.profile_pic | default('default')}}.jpg">
+            <div class="col text-center">Temperature: {{food.get_temp_str()}}</div>
+            {% if food.stock == 0  %}
+            <div class="col text-center warning">Out Of Stock</div>
+            {% else %}
+            <div class="col text-center">Stock: {{food.stock}}</div>
+            {% endif %}
+            <div class="col text-center">Cuisine: {{food.get_food_type_str()}}</div>
+            <div class="col text-center">Price: ${{food.price}}</div>
+            </a>
+        </div>
+{% endfor %}
+</div>
+
+</div>
+
+</div>
+
+</div>
+
 </p>
 {% endblock %}
+
+
+<!--    <div class="col  d-flex justify-content-center">-->
+<!--        <div class="row mx-auto"><div class="col text-center">{{food.name}}</div></div>-->
+<!--        <div class="row mx-auto"><div class="col"><img class="d-block" style="width: 100px; height: 100px;" src="/static/images/{{food.profile_pic | default('default')}}.jpg"></div></div>-->
+<!--        <div class="row">-->
+<!--        <div class="col text-center">-->
+<!--            <p>Temperature: {{food.get_temp_str()}}</p>-->
+<!--            <p>Cuisine: {{food.get_food_type_str()}}</p>-->
+<!--        </div>-->
+<!--        </div>-->
+<!--        <div class="row"><div class="col text-center">Price: ${{food.price}}</div></div>-->
+<!--      </div>-->
+<!--    </div>-->

@@ -12,3 +12,16 @@ class CreateInventoryForm(Form):
     cuisine = RadioField('Cuisine',choices=Inventory.cuisine_dict.items(), default='H')
     ProfileImage = FileField('Profile')
     price = IntegerField('Price',[validators.DataRequired(),NumberRange(min=0)],default=0)
+    stock = IntegerField('Stock',[validators.NumberRange(min=0)],default=0)
+
+class CreateReviewForm(Form):
+    name = StringField('Name', [validators.Length(min=1, max=150), validators.DataRequired()])
+    message = TextAreaField('message', [validators.Length(min=1, max=150), validators.DataRequired()])
+
+class UpdateInventoryForm(Form):
+    name = StringField('Name', [validators.Length(min=1, max=150), validators.DataRequired()])
+    temp = SelectField('Temp', [validators.DataRequired()] ,choices=Inventory.temp_dict.items(), default='')
+    cuisine = RadioField('Cuisine',choices=Inventory.cuisine_dict.items(), default='H')
+    ProfileImage = FileField('Profile')
+    price = IntegerField('Price',[validators.DataRequired(),NumberRange(min=0)],default=0)
+    stock = IntegerField('Stock',[validators.NumberRange(min=0)],default=0)

@@ -19,3 +19,8 @@ ul.articles
     list-style-type: none;
     list-style:none !important;
 }
+th
+{
+    width:250px;
+}
+
